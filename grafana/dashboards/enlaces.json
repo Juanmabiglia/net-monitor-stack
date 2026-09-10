@@ -62,7 +62,7 @@
           },
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT h.name as host, CAST(hi.location_lat AS double precision) as latitude, CAST(hi.location_lon AS double precision) as longitude, 1 as status FROM hosts h JOIN host_inventory hi ON h.hostid = hi.hostid WHERE h.status = 0 AND hi.location_lat <> '';",
+          "rawSql": "SELECT h.name as host, hi.location_lat as latitude, hi.location_lon as longitude, 1 as status FROM hosts h JOIN host_inventory hi ON h.hostid = hi.hostid WHERE h.status = 0;",
           "refId": "A"
         }
       ],
