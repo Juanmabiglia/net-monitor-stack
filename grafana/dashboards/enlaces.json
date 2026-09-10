@@ -71,7 +71,7 @@
         "basemap": {
           "config": {},
           "name": "Layer 0",
-          "type": "esri"
+          "type": "osm"
         },
         "controls": {
           "mouseWheelZoom": true,
@@ -137,21 +137,18 @@
             "uid": "${datasource}"
           },
           "group": {
-            "filter": ""
+            "filter": "/.*/"
           },
           "host": {
-            "filter": ""
+            "filter": "/.*/"
           },
           "item": {
-            "filter": ""
+            "filter": "/.*ICMP ping.*/"
           },
           "options": {
             "showPoints": false
           },
-          "queryType": 1,
-          "trigger": {
-            "filter": ""
-          }
+          "queryType": 0
         }
       ],
       "title": "Mapa de Enlaces",
@@ -222,21 +219,18 @@
             "uid": "${datasource}"
           },
           "group": {
-            "filter": ""
+            "filter": "/.*/"
           },
           "host": {
-            "filter": ""
+            "filter": "/.*/"
           },
           "item": {
-            "filter": ""
+            "filter": "/.*ICMP ping.*/"
           },
           "options": {
             "showPoints": false
           },
-          "queryType": 1,
-          "trigger": {
-            "filter": ""
-          }
+          "queryType": 0
         }
       ],
       "title": "Triggers Activos y Estado",
