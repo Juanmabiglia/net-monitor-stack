@@ -117,17 +117,11 @@
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
-          "custom": {
-            "align": "left",
-            "displayMode": "color-background",
-            "inspect": false
-          },
           "mappings": [
             {
               "options": {
-                "1": { "color": "green", "index": 0, "text": "UP (Activo)" },
-                "2": { "color": "red", "index": 1, "text": "DOWN (Caído)" },
-                "3": { "color": "orange", "index": 2, "text": "TESTING" }
+                "1": { "color": "green", "index": 0, "text": "UP" },
+                "2": { "color": "red", "index": 1, "text": "DOWN" }
               },
               "type": "value"
             }
@@ -140,18 +134,22 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": { "id": "byName", "options": "Puerto" },
-            "properties": [
-              { "id": "custom.displayMode", "value": "auto" }
-            ]
-          }
-        ]
+        "overrides": []
       },
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 12 },
+      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 12 },
       "id": 3,
-      "options": { "showHeader": true },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "name"
+      },
       "targets": [
         {
           "datasource": {
@@ -160,31 +158,20 @@
           },
           "group": { "filter": "/.*/" },
           "host": { "filter": "/.*/" },
-          "item": { "filter": "/.*(status|Status|estado|Estado|Link|link|Ping|ping|Uptime|uptime|Oper).*/" },
+          "item": { "filter": "/.*(status|Status|estado|Estado|Link|link|Oper).*/" },
           "options": { "showPoints": false },
-          "queryType": 0
-        }
-      ],
-      "title": "Estado de Interfaces Físicas (Puertos)",
-      "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [ "last" ]
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "renameByName": {
-              "Field": "Puerto",
-              "Last": "Estado del Enlace"
+          "queryType": 0,
+          "functions": [
+            {
+              "def": { "name": "setAlias", "category": "Alias", "params": [ { "name": "alias", "type": "string" } ] },
+              "params": [ "$host - $item" ],
+              "text": "setAlias($host - $item)"
             }
-          }
+          ]
         }
       ],
-      "type": "table"
+      "title": "Panel Frontal de Switches (Estado de Puertos)",
+      "type": "stat"
     }
   ],
   "schemaVersion": 39,
