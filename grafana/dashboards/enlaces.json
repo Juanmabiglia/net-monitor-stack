@@ -68,11 +68,7 @@
       },
       "id": 1,
       "options": {
-        "basemap": {
-          "config": {},
-          "name": "Layer 0",
-          "type": "osm"
-        },
+
         "controls": {
           "mouseWheelZoom": true,
           "showAttribution": true,
