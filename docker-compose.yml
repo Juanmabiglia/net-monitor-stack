@@ -5,6 +5,7 @@ services:
     image: postgres:16-alpine
     container_name: postgres-server
     environment:
+      - TZ=America/Argentina/Buenos_Aires
       - POSTGRES_USER=zabbix
       - POSTGRES_PASSWORD=zabbix
       - POSTGRES_DB=zabbix
@@ -19,6 +20,7 @@ services:
     image: zabbix/zabbix-server-pgsql:alpine-7.0-latest
     container_name: zabbix-server
     environment:
+      - TZ=America/Argentina/Buenos_Aires
       - DB_SERVER_HOST=postgres-server
       - POSTGRES_USER=zabbix
       - POSTGRES_PASSWORD=zabbix
@@ -35,6 +37,7 @@ services:
     image: zabbix/zabbix-web-nginx-pgsql:alpine-7.0-latest
     container_name: zabbix-web
     environment:
+      - TZ=America/Argentina/Buenos_Aires
       - ZBX_SERVER_HOST=zabbix-server
       - DB_SERVER_HOST=postgres-server
       - POSTGRES_USER=zabbix
@@ -55,6 +58,7 @@ services:
     image: grafana/grafana:11.2.0
     container_name: grafana
     environment:
+      - TZ=America/Argentina/Buenos_Aires
       - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app
     ports:
       - "3000:3000"
