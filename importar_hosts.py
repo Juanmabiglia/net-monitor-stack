@@ -87,9 +87,12 @@ def main():
 
     # 3. Crear Hosts
     for h in HOSTS:
+        # El campo "host" (nombre tecnico) no permite caracteres especiales como # o ().
+        tech_name = h['name'].replace('#', '').replace('(', '').replace(')', '').replace('/', '-').strip()
+        
         print(f"Creando host {h['name']} ({h['ip']})...")
         host_params = {
-            "host": h['name'],
+            "host": tech_name,
             "name": h['name'],
             "interfaces": [
                 {
@@ -111,7 +114,7 @@ def main():
         }
         
         # Comprobar si ya existe
-        exists = zabbix_api("host.get", {"filter": {"host": [h['name']]}}, token)
+        exists = zabbix_api("host.get", {"filter": {"host": [tech_name]}}, token)
         if exists:
             print(f"  -> El host {h['name']} ya existe. Omitiendo.")
             continue
