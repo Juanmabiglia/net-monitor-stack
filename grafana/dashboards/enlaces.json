@@ -48,9 +48,9 @@
         ],
         "tooltip": { "mode": "details" },
         "view": {
-          "id": "latlon",
-          "lat": -27.4833,
-          "lon": -58.9333,
+          "id": "coords",
+          "lat": -27.451123,
+          "lon": -58.986540,
           "zoom": 12
         }
       },
