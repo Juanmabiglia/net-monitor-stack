@@ -62,7 +62,7 @@
           },
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT h.name as host, hi.location_lat as latitude, hi.location_lon as longitude, 1 as status FROM hosts h JOIN host_inventory hi ON h.hostid = hi.hostid WHERE h.status = 0;",
+          "rawSql": "SELECT h.name as host, '-27.451123' as latitude, '-58.986540' as longitude, 1 as status FROM hosts h WHERE h.status = 0;",
           "refId": "A"
         }
       ],
