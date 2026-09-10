@@ -8,7 +8,6 @@ datasources:
     isDefault: true
     jsonData:
       username: Admin
-      password: zabbix
       trends: true
     secureJsonData:
       password: zabbix
