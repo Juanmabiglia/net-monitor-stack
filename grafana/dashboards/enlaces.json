@@ -2,16 +2,8 @@
   "editable": true,
   "panels": [
     {
-      "datasource": {
-        "type": "postgres",
-        "uid": "Zabbix_DB"
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
+      "datasource": { "type": "postgres", "uid": "Zabbix_DB" },
+      "gridPos": { "h": 12, "w": 12, "x": 0, "y": 0 },
       "id": 1,
       "options": {
         "basemap": {
@@ -22,23 +14,12 @@
             "attribution": "© OpenStreetMap contributors"
           }
         },
-        "controls": {
-          "mouseWheelZoom": true,
-          "showAttribution": true,
-          "showDebug": false,
-          "showScale": true,
-          "showZoom": true
-        },
+        "controls": { "mouseWheelZoom": true, "showAttribution": true, "showDebug": false, "showScale": true, "showZoom": true },
         "layers": [
           {
             "config": {
               "showLegend": true,
-              "style": {
-                "color": { "fixed": "green" },
-                "opacity": 0.8,
-                "size": { "fixed": 8 },
-                "symbol": { "fixed": "img/icons/marker/circle.svg", "mode": "fixed" }
-              }
+              "style": { "color": { "fixed": "green" }, "opacity": 0.8, "size": { "fixed": 8 }, "symbol": { "fixed": "img/icons/marker/circle.svg", "mode": "fixed" } }
             },
             "location": { "mode": "auto" },
             "name": "Equipos Sanos",
@@ -47,19 +28,11 @@
           }
         ],
         "tooltip": { "mode": "details" },
-        "view": {
-          "id": "coords",
-          "lat": -27.451123,
-          "lon": -58.986540,
-          "zoom": 12
-        }
+        "view": { "id": "coords", "lat": -27.451123, "lon": -58.986540, "zoom": 12 }
       },
       "targets": [
         {
-          "datasource": {
-            "type": "postgres",
-            "uid": "Zabbix_DB"
-          },
+          "datasource": { "type": "postgres", "uid": "Zabbix_DB" },
           "format": "table",
           "rawQuery": true,
           "rawSql": "SELECT h.name as host, '-27.451123' as latitude, '-58.986540' as longitude, 1 as status FROM hosts h WHERE h.status = 0;",
@@ -70,35 +43,21 @@
       "type": "geomap"
     },
     {
-      "datasource": {
-        "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "${datasource}"
-      },
+      "datasource": { "type": "alexanderzobnin-zabbix-datasource", "uid": "${datasource}" },
       "fieldConfig": {
         "defaults": {
           "color": { "mode": "thresholds" },
           "thresholds": {
             "mode": "absolute",
-            "steps": [
-              { "color": "green", "value": null },
-              { "color": "red", "value": 1 }
-            ]
+            "steps": [ { "color": "green", "value": null }, { "color": "red", "value": 1 } ]
           }
         }
       },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      },
+      "gridPos": { "h": 12, "w": 12, "x": 12, "y": 0 },
       "id": 2,
       "targets": [
         {
-          "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "${datasource}"
-          },
+          "datasource": { "type": "alexanderzobnin-zabbix-datasource", "uid": "${datasource}" },
           "group": { "filter": "/.*/" },
           "host": { "filter": "/.*/" },
           "item": { "filter": "/.*ICMP ping.*/" },
@@ -110,89 +69,105 @@
       "type": "state-timeline"
     },
     {
-      "datasource": {
-        "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": { "mode": "thresholds" },
-          "mappings": [
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 12 },
+      "id": 100,
+      "panels": [
+        {
+          "datasource": { "type": "alexanderzobnin-zabbix-datasource", "uid": "${datasource}" },
+          "fieldConfig": {
+            "defaults": {
+              "color": { "mode": "thresholds" },
+              "mappings": [
+                {
+                  "options": {
+                    "1": { "color": "green", "index": 0, "text": "UP" },
+                    "2": { "color": "red", "index": 1, "text": "DOWN" },
+                    "3": { "color": "orange", "index": 2, "text": "TEST" }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [ { "color": "gray", "value": null }, { "color": "red", "value": 2 } ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 5, "w": 24, "x": 0, "y": 13 },
+          "id": 101,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+            "textMode": "name",
+            "text": { "valueSize": 20, "titleSize": 14 }
+          },
+          "targets": [
             {
-              "options": {
-                "1": { "color": "green", "index": 0, "text": "UP" },
-                "2": { "color": "red", "index": 1, "text": "DOWN" }
-              },
-              "type": "value"
+              "datasource": { "type": "alexanderzobnin-zabbix-datasource", "uid": "${datasource}" },
+              "group": { "filter": "/.*/" },
+              "host": { "filter": "/^$Dispositivo$/" },
+              "item": { "filter": "/.*(status|Status|estado|Estado|Link|link|Oper).*/" },
+              "options": { "showPoints": false },
+              "queryType": 0,
+              "functions": [
+                {
+                  "def": { "name": "setAlias", "category": "Alias", "params": [{ "name": "alias", "type": "string" }] },
+                  "params": [ "$item" ],
+                  "text": "setAlias($item)"
+                }
+              ]
             }
           ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              { "color": "gray", "value": null },
-              { "color": "red", "value": 2 }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": { "h": 14, "w": 24, "x": 0, "y": 12 },
-      "id": 3,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "name"
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "${datasource}"
-          },
-          "group": { "filter": "/.*/" },
-          "host": { "filter": "/.*/" },
-          "item": { "filter": "/.*(status|Status|estado|Estado|Link|link|Oper).*/" },
-          "options": { "showPoints": false },
-          "queryType": 0,
-          "functions": [
+          "title": "Puertos Físicos",
+          "transformations": [
             {
-              "def": { "name": "setAlias", "category": "Alias", "params": [ { "name": "alias", "type": "string" } ] },
-              "params": [ "$host - $item" ],
-              "text": "setAlias($host - $item)"
+              "id": "renameByRegex",
+              "options": { "regex": ".*Interface (.*?):.*", "renamePattern": "$1" }
+            },
+            {
+              "id": "renameByRegex",
+              "options": { "regex": ".*(ether[0-9]+).*", "renamePattern": "$1" }
+            },
+            {
+              "id": "renameByRegex",
+              "options": { "regex": ".*(port[0-9]+).*", "renamePattern": "$1" }
             }
-          ]
+          ],
+          "type": "stat"
         }
       ],
-      "title": "Panel Frontal de Switches (Estado de Puertos)",
-      "type": "stat"
+      "repeat": "Dispositivo",
+      "title": "Switch: $Dispositivo",
+      "type": "row"
     }
   ],
   "schemaVersion": 39,
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "Zabbix",
-          "value": "Zabbix"
-        },
-        "hide": 2,
-        "name": "datasource",
-        "query": "alexanderzobnin-zabbix-datasource",
-        "type": "datasource"
+        "current": { "selected": false, "text": "Zabbix", "value": "Zabbix" },
+        "hide": 2, "name": "datasource", "query": "alexanderzobnin-zabbix-datasource", "type": "datasource"
+      },
+      {
+        "allValue": ".*",
+        "current": { "selected": true, "text": "All", "value": "$__all" },
+        "datasource": { "type": "alexanderzobnin-zabbix-datasource", "uid": "${datasource}" },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Equipo",
+        "multi": true,
+        "name": "Dispositivo",
+        "query": "{\"group\":\"/.*/\",\"host\":\"/.*/\",\"item\":\"\",\"application\":\"\",\"queryType\":\"host\"}",
+        "refresh": 1,
+        "type": "query"
       }
     ]
   },
-  "time": {
-    "from": "now-6h",
-    "to": "now"
-  },
+  "time": { "from": "now-6h", "to": "now" },
   "title": "Monitor de Enlaces"
 }
