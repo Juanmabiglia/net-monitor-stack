@@ -55,7 +55,7 @@ services:
       - zabbix-net
 
   grafana:
-    image: grafana/grafana:11.1.0
+    image: grafana/grafana:10.4.5
     container_name: grafana
     environment:
       - TZ=America/Argentina/Buenos_Aires
