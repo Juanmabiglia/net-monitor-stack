@@ -162,7 +162,11 @@
         "label": "Equipo",
         "multi": true,
         "name": "Dispositivo",
-        "query": "{\"group\":\"/.*/\",\"host\":\"/.*/\",\"item\":\"\",\"application\":\"\",\"queryType\":\"host\"}",
+        "query": {
+          "group": "/.*/",
+          "host": "/.*/",
+          "queryType": "host"
+        },
         "refresh": 1,
         "type": "query"
       }
