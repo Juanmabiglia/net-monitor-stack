@@ -108,6 +108,83 @@
       ],
       "title": "Alertas y Triggers (Problemas)",
       "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "custom": {
+            "align": "left",
+            "displayMode": "color-background",
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "1": { "color": "green", "index": 0, "text": "UP (Activo)" },
+                "2": { "color": "red", "index": 1, "text": "DOWN (Caído)" },
+                "3": { "color": "orange", "index": 2, "text": "TESTING" }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "gray", "value": null },
+              { "color": "red", "value": 2 }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Puerto" },
+            "properties": [
+              { "id": "custom.displayMode", "value": "auto" }
+            ]
+          }
+        ]
+      },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 12 },
+      "id": 3,
+      "options": { "showHeader": true },
+      "targets": [
+        {
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${datasource}"
+          },
+          "group": { "filter": "/.*/" },
+          "host": { "filter": "/.*/" },
+          "item": { "filter": "/.*Operational status.*/" },
+          "options": { "showPoints": false },
+          "queryType": 0
+        }
+      ],
+      "title": "Estado de Interfaces Físicas (Puertos)",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [ "last" ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "renameByName": {
+              "Field": "Puerto",
+              "Last": "Estado del Enlace"
+            }
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "schemaVersion": 39,
