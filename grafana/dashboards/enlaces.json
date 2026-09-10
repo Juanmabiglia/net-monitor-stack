@@ -19,7 +19,7 @@
           "name": "OSM Libre",
           "config": {
             "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-            "attribution": "\u00a9 OpenStreetMap contributors"
+            "attribution": "© OpenStreetMap contributors"
           }
         },
         "controls": {
@@ -242,27 +242,10 @@
             "showPoints": false
           },
           "queryType": 0,
-          "functions": [
-            {
-              "def": {
-                "name": "setAlias",
-                "category": "Alias",
-                "params": [
-                  {
-                    "name": "alias",
-                    "type": "string"
-                  }
-                ]
-              },
-              "params": [
-                "$item"
-              ],
-              "text": "setAlias($item)"
-            }
-          ]
+          "functions": []
         }
       ],
-      "title": "Puertos F\u00edsicos",
+      "title": "Puertos Físicos",
       "transformations": [
         {
           "id": "renameByRegex",
