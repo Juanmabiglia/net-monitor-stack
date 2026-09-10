@@ -120,8 +120,8 @@ def main():
         # Comprobar si ya existe
         exists = zabbix_api("host.get", {"filter": {"host": [tech_name]}}, token)
         if exists:
-            print(f"  -> El host {h['name']} ya existe. Omitiendo.")
-            continue
+            print(f"  -> El host {h['name']} ya existe. Recreándolo con nueva configuración...")
+            zabbix_api("host.delete", [exists[0]["hostid"]], token)
             
         zabbix_api("host.create", host_params, token)
         print("  -> Creado exitosamente.")
