@@ -1,64 +1,10 @@
 {
-  "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "type": "dashboard"
-      }
-    ]
-  },
   "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "id": null,
-  "links": [],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
-        "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "${datasource}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": []
+        "type": "postgres",
+        "uid": "Zabbix_DB"
       },
       "gridPos": {
         "h": 12,
@@ -88,44 +34,19 @@
             "config": {
               "showLegend": true,
               "style": {
-                "color": {
-                  "fixed": "dark-green"
-                },
-                "opacity": 0.5,
-                "rotation": {
-                  "fixed": 0,
-                  "max": 360,
-                  "min": -360
-                },
-                "size": {
-                  "fixed": 5,
-                  "max": 20,
-                  "min": 2
-                },
-                "symbol": {
-                  "fixed": "img/icons/marker/circle.svg",
-                  "mode": "fixed"
-                },
-                "textConfig": {
-                  "fontSize": 12,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "textAlign": "center",
-                  "textBaseline": "middle"
-                }
+                "color": { "fixed": "green" },
+                "opacity": 0.8,
+                "size": { "fixed": 8 },
+                "symbol": { "fixed": "img/icons/marker/circle.svg", "mode": "fixed" }
               }
             },
-            "location": {
-              "mode": "auto"
-            },
-            "name": "Layer 1",
+            "location": { "mode": "auto" },
+            "name": "Equipos Sanos",
             "tooltip": true,
             "type": "markers"
           }
         ],
-        "tooltip": {
-          "mode": "details"
-        },
+        "tooltip": { "mode": "details" },
         "view": {
           "id": "latlon",
           "lat": -27.4833,
@@ -136,25 +57,16 @@
       "targets": [
         {
           "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "${datasource}"
+            "type": "postgres",
+            "uid": "Zabbix_DB"
           },
-          "group": {
-            "filter": "/.*/"
-          },
-          "host": {
-            "filter": "/.*/"
-          },
-          "item": {
-            "filter": "/.*ICMP ping.*/"
-          },
-          "options": {
-            "showPoints": false
-          },
-          "queryType": 0
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT h.name as host, CAST(hi.location_lat AS double precision) as latitude, CAST(hi.location_lon AS double precision) as longitude, 1 as status FROM hosts h JOIN host_inventory hi ON h.hostid = hi.hostid WHERE h.status = 0 AND hi.location_lat <> '';",
+          "refId": "A"
         }
       ],
-      "title": "Mapa de Enlaces",
+      "title": "Mapa de Enlaces - Resistencia",
       "type": "geomap"
     },
     {
@@ -164,34 +76,15 @@
       },
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "lineWidth": 0,
-            "spanNulls": false
-          },
-          "mappings": [],
+          "color": { "mode": "thresholds" },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
+              { "color": "green", "value": null },
+              { "color": "red", "value": 1 }
             ]
           }
-        },
-        "overrides": []
+        }
       },
       "gridPos": {
         "h": 12,
@@ -200,52 +93,23 @@
         "y": 0
       },
       "id": 2,
-      "options": {
-        "alignValue": "left",
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "mergeValues": true,
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
       "targets": [
         {
           "datasource": {
             "type": "alexanderzobnin-zabbix-datasource",
             "uid": "${datasource}"
           },
-          "group": {
-            "filter": "/.*/"
-          },
-          "host": {
-            "filter": "/.*/"
-          },
-          "item": {
-            "filter": "/.*ICMP ping.*/"
-          },
-          "options": {
-            "showPoints": false
-          },
-          "queryType": 0
+          "group": { "filter": "/.*/" },
+          "host": { "filter": "/.*/" },
+          "queryType": 1,
+          "trigger": { "filter": "" }
         }
       ],
-      "title": "Triggers Activos y Estado",
+      "title": "Alertas y Triggers (Problemas)",
       "type": "state-timeline"
     }
   ],
-  "refresh": "1m",
   "schemaVersion": 39,
-  "tags": [
-    "zabbix",
-    "enlaces"
-  ],
   "templating": {
     "list": [
       {
@@ -255,14 +119,8 @@
           "value": "Zabbix"
         },
         "hide": 2,
-        "includeAll": false,
-        "multi": false,
         "name": "datasource",
-        "options": [],
         "query": "alexanderzobnin-zabbix-datasource",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
         "type": "datasource"
       }
     ]
@@ -271,7 +129,5 @@
     "from": "now-6h",
     "to": "now"
   },
-  "timepicker": {},
-  "timezone": "browser",
   "title": "Monitor de Enlaces"
 }
