@@ -160,7 +160,7 @@
           },
           "group": { "filter": "/.*/" },
           "host": { "filter": "/.*/" },
-          "item": { "filter": "/.*(status|Status|estado|Estado).*/" },
+          "item": { "filter": "/.*(status|Status|estado|Estado|Link|link|Ping|ping|Uptime|uptime|Oper).*/" },
           "options": { "showPoints": false },
           "queryType": 0
         }
