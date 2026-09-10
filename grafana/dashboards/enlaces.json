@@ -101,8 +101,9 @@
           },
           "group": { "filter": "/.*/" },
           "host": { "filter": "/.*/" },
-          "queryType": 1,
-          "trigger": { "filter": "" }
+          "item": { "filter": "/.*ICMP ping.*/" },
+          "options": { "showPoints": false },
+          "queryType": 0
         }
       ],
       "title": "Alertas y Triggers (Problemas)",
