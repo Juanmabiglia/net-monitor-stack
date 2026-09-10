@@ -77,11 +77,11 @@ def main():
         new_group = zabbix_api("hostgroup.create", {"name": "Enlaces de Red"}, token)
         group_id = new_group["groupids"][0]
 
-    # 2. Obtener el ID del Template "ICMP Ping"
-    print("Buscando Template 'ICMP Ping'...")
-    templates = zabbix_api("template.get", {"filter": {"host": ["ICMP Ping"]}}, token)
+    # 2. Obtener el ID del Template "Generic by SNMP"
+    print("Buscando Template 'Generic by SNMP'...")
+    templates = zabbix_api("template.get", {"filter": {"host": ["Generic by SNMP"]}}, token)
     if not templates:
-        print("No se encontró el template 'ICMP Ping'. Abortando.")
+        print("No se encontró el template 'Generic by SNMP'. Abortando.")
         sys.exit(1)
     template_id = templates[0]["templateid"]
 
@@ -96,12 +96,16 @@ def main():
             "name": h['name'],
             "interfaces": [
                 {
-                    "type": 1, # 1=Agent, 2=SNMP, etc. (Agent es el por defecto usado para pings simples si no se especifica)
+                    "type": 2, # 2=SNMP
                     "main": 1,
                     "useip": 1,
                     "ip": h['ip'],
                     "dns": "",
-                    "port": "10050"
+                    "port": "161",
+                    "details": {
+                        "version": 2,
+                        "community": "PJCH"
+                    }
                 }
             ],
             "groups": [{"groupid": group_id}],
