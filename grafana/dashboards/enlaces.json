@@ -71,7 +71,7 @@
         "basemap": {
           "config": {},
           "name": "Layer 0",
-          "type": "carto"
+          "type": "esri"
         },
         "controls": {
           "mouseWheelZoom": true,

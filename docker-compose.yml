@@ -59,7 +59,7 @@ services:
     container_name: grafana
     environment:
       - TZ=America/Argentina/Buenos_Aires
-      - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app
+      - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app 4.6.1
     ports:
       - "3000:3000"
     volumes:
