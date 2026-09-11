@@ -31,7 +31,7 @@
       },
       "id": 10,
       "panels": [],
-      "title": "Vistas Generales (Topología y Mapa)",
+      "title": "Vistas Generales (Topolog\u00eda y Mapa)",
       "type": "row"
     },
     {
@@ -46,7 +46,7 @@
         "y": 1
       },
       "id": 1,
-      "title": "Topología Lógica",
+      "title": "Topolog\u00eda L\u00f3gica",
       "type": "marcusolsson-network-graph-panel",
       "options": {
         "edges": {
@@ -112,8 +112,8 @@
     },
     {
       "datasource": {
-        "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "Zabbix"
+        "type": "postgres",
+        "uid": "Zabbix_DB"
       },
       "gridPos": {
         "h": 15,
@@ -126,7 +126,7 @@
         "basemap": {
           "config": {
             "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-            "attribution": "© OpenStreetMap contributors"
+            "attribution": "\u00a9 OpenStreetMap contributors"
           },
           "name": "OSM Libre",
           "type": "xyz"
@@ -144,7 +144,7 @@
               "showLegend": true,
               "style": {
                 "color": {
-                  "field": "Severity",
+                  "field": "severity",
                   "fixed": "dark-green"
                 },
                 "opacity": 0.8,
@@ -217,26 +217,16 @@
       "targets": [
         {
           "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "Zabbix"
+            "type": "postgres",
+            "uid": "Zabbix_DB"
           },
-          "group": {
-            "filter": "/.*/"
-          },
-          "host": {
-            "filter": "/.*/"
-          },
-          "item": {
-            "filter": "/.*/"
-          },
-          "queryType": 2,
-          "refId": "A",
-          "trigger": {
-            "filter": "/.*/"
-          }
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT h.name as host, COALESCE(NULLIF(hi.location_lat, ''), '-27.4833') as latitude, COALESCE(NULLIF(hi.location_lon, ''), '-58.9333') as longitude, COALESCE(MAX(t.priority), 0) as severity FROM hosts h LEFT JOIN host_inventory hi ON h.hostid = hi.hostid LEFT JOIN items i ON h.hostid = i.hostid LEFT JOIN functions f ON i.itemid = f.itemid LEFT JOIN triggers t ON f.triggerid = t.triggerid AND t.value = 1 AND t.status = 0 WHERE h.status = 0 GROUP BY h.name, hi.location_lat, hi.location_lon;",
+          "refId": "A"
         }
       ],
-      "title": "Mapa Geográfico",
+      "title": "Mapa Geogr\u00e1fico",
       "type": "geomap"
     },
     {
@@ -310,7 +300,7 @@
         }
       ],
       "title": "Listado de Eventos (Alertas Activas)",
-      "type": "alexanderzobnin-zabbix-problems-panel"
+      "type": "alexanderzobnin-zabbix-triggers-panel"
     }
   ],
   "refresh": "1m",
@@ -329,7 +319,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Dashboard Principal: Topología y Mapas",
+  "title": "Dashboard Principal: Topolog\u00eda y Mapas",
   "uid": "main-topology-01",
   "version": 1
 }
