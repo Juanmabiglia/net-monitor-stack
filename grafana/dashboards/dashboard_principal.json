@@ -47,7 +47,7 @@
       },
       "id": 1,
       "title": "Topolog\u00eda L\u00f3gica",
-      "type": "marcusolsson-network-graph-panel",
+      "type": "canvas",
       "options": {
         "edges": {
           "color": "gray",
